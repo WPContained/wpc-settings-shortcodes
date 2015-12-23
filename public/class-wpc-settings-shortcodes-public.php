@@ -52,6 +52,8 @@ class Wpc_Settings_Shortcodes_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		add_shortcode('wpc-settings', array($this, 'wpc_get_setting'));
+
 	}
 
 	/**
@@ -98,6 +100,24 @@ class Wpc_Settings_Shortcodes_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpc-settings-shortcodes-public.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function wpc_get_setting( $atts ) {
+
+		$setting_value = '';
+
+		$atts = shortcode_atts( array(
+				'setting' => ''
+			), $atts, 'wpc-settings' );
+
+			if (isset($atts['setting']) && $atts['setting'] != '') {
+				$options = get_option( 'wpcsscodes_settings' );
+
+
+				$setting_value = $options[$atts['setting']];
+			}
+
+			return $setting_value;
 	}
 
 }

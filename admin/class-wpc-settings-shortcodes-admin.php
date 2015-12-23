@@ -100,4 +100,117 @@ class Wpc_Settings_Shortcodes_Admin {
 
 	}
 
+	public function admin_init() {
+
+
+
+	}
+
+	function wpcsscodes_add_admin_menu(  ) {
+
+		add_menu_page( 'WPC Settings Shortcodes', 'WPC Settings Shortcodes', 'manage_options', 'wpc_settings_shortcodes', array($this, 'wpcsscodes_options_page') );
+
+	}
+
+
+	function wpcsscodes_settings_init(  ) {
+
+		register_setting( 'wpcsscodes', 'wpcsscodes_settings' );
+
+		add_settings_section(
+			'wpcsscodes_wpcsscodes_section',
+			__( 'Settings', 'wpcsscodes' ),
+			array($this, 'wpcsscodes_settings_section_callback'),
+			'wpcsscodes'
+		);
+
+		add_settings_field(
+			'site_slogan',
+			__( 'Site Slogan Text', 'wpcsscodes' ),
+			array( $this, 'site_slogan_render'),
+			'wpcsscodes',
+			'wpcsscodes_wpcsscodes_section'
+		);
+/*
+		add_settings_field(
+			'wpcsscodes_textarea_field_1',
+			__( 'Settings field description', 'wpcsscodes' ),
+			array( $this, 'wpcsscodes_textarea_field_1_render'),
+			'wpcsscodes',
+			'wpcsscodes_wpcsscodes_section'
+		);
+
+		add_settings_field(
+			'wpcsscodes_select_field_2',
+			__( 'Settings field description', 'wpcsscodes' ),
+			array( $this, 'wpcsscodes_select_field_2_render'),
+			'wpcsscodes',
+			'wpcsscodes_wpcsscodes_section'
+		);
+*/
+
+	}
+
+
+	function site_slogan_render(  ) {
+
+		$options = get_option( 'wpcsscodes_settings' );
+		?>
+		<input type='text' name='wpcsscodes_settings[site_slogan]' value='<?php echo $options['site_slogan']; ?>'>
+		<?php
+
+	}
+
+
+	function wpcsscodes_textarea_field_1_render(  ) {
+
+		$options = get_option( 'wpcsscodes_settings' );
+		?>
+		<textarea cols='40' rows='5' name='wpcsscodes_settings[wpcsscodes_textarea_field_1]'>
+			<?php echo $options['wpcsscodes_textarea_field_1']; ?>
+	 	</textarea>
+		<?php
+
+	}
+
+
+	function wpcsscodes_select_field_2_render(  ) {
+
+		$options = get_option( 'wpcsscodes_settings' );
+		?>
+		<select name='wpcsscodes_settings[wpcsscodes_select_field_2]'>
+			<option value='1' <?php selected( $options['wpcsscodes_select_field_2'], 1 ); ?>>Option 1</option>
+			<option value='2' <?php selected( $options['wpcsscodes_select_field_2'], 2 ); ?>>Option 2</option>
+		</select>
+
+	<?php
+
+	}
+
+
+	function wpcsscodes_settings_section_callback(  ) {
+
+		echo __( 'Enter settings below', 'wpcsscodes' );
+
+	}
+
+
+	function wpcsscodes_options_page(  ) {
+
+		?>
+		<form action='options.php' method='post'>
+
+			<h2>WPC Settings Shortcodes</h2>
+
+			<?php
+			settings_fields( 'wpcsscodes' );
+			do_settings_sections( 'wpcsscodes' );
+			submit_button();
+			?>
+
+		</form>
+		<?php
+
+	}
+
 }
