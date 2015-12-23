@@ -30,6 +30,6 @@ Contributors
 License
 -------
 
-Copyright 2015 [A Medium Corporation](https://medium.com)
+Copyright 2015 [WP Contained](https://wpcontained.com)
 
 Licensed under Apache License Version 2.0.  Details in the attached LICENSE file.
